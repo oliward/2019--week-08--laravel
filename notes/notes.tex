@@ -1,0 +1,83 @@
+% setup the document
+\documentclass[b5paper,openany]{book}
+
+% setup variables ------------------------------
+
+% your name
+\newcommand\instructor{Mark Wales}
+
+% the week number
+\newcommand\weekno{8}
+
+% week main title
+\newcommand\maintitle{APIs}
+
+% week subtitle
+\newcommand\subtitle{with Laravel}
+
+% link to notes - relative to github.com/develop-me/
+\newcommand\github{book-marks/week-08--laravel/blob/master/notes/}
+
+% setup functions, styling, etc.
+\input{../../templates/template.tex}
+
+% the structure of the document
+\begin{document}
+
+% render the title page (uses variables above)
+\tp
+
+\quotepage{Failure is simply the opportunity to begin again, this time more intelligently}{Henry Ford}
+
+\tableofcontents
+
+\input{../../templates/preface.tex}
+
+\chapter{Classes in PHP}
+\input{01/01-classes.tex}
+
+\chapter{Namespaces}
+\input{01/02-namespaces.tex}
+
+\chapter{Composer}
+\input{01/03-composer.tex}
+
+\chapter{Object-Oriented Programming}
+\input{02/01-oop.tex}
+
+\chapter{HTTP}
+\input{02/02-http.tex}
+
+\chapter{RESTful APIs}
+\input{02/03-apis.tex}
+
+\chapter{Laravel: An Introduction}
+\input{03/01-setup.tex}
+
+\chapter{Eloquent ORM}
+\input{03/02-eloquent.tex}
+
+\chapter{Basic API}
+\input{03/03-basic-api.tex}
+
+\chapter{API Details}
+\input{03/04-404s-resources-cors.tex}
+
+\chapter{Advanced Database Structures}
+\input{04/01-one-to-many.tex}
+\pagebreak
+\input{04/02-many-to-many.tex}
+
+\chapter{Authentication}
+\input{05/01-authentication.tex}
+
+\chapter{Deploying a Laravel API}
+\input{04/deploying.tex}
+
+\nchapter{Glossary}
+\input{glossary.tex}
+
+
+\input{../../templates/colophon.tex}
+
+\end{document}

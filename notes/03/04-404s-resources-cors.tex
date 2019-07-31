@@ -1,0 +1,196 @@
+Now, while we have got a basic API up and running, it's lacking some fairly important features:
+
+\begin{itemize}
+    \item \textbf{404s}: if we request an article that doesn't exist we'll get a 500 error
+    \item \textbf{Responses}: the responses contain data we might not want to share
+    \item \textbf{CORS Support}: due to the security requirements of modern web browsers, they won't be able to use our API
+    \item \textbf{Validation}: we can submit absolutely anything to the API at the moment, which will lead to all sorts of MySQL errors
+\end{itemize}
+
+
+
+\section{Route Model Binding}
+
+What if we try to update \texttt{/articles/34849}? Currently we'll get a 500 error as there is no article with ID 34849. But a 500 error is of no use to the client making API requests: it just tells them that you've got a bug in your code.
+\\
+
+If an article doesn't exist then we should return a 404 status. The client \textit{can} do something with this as it has a very specific meaning: the thing you requested doesn't exist.
+\\
+
+This is such a common issue when building websites/APIs, that Laravel has support for it baked-in. We can use \textbf{Route Model Binding} to ask Laravel to find the appropriate article for us and, if it doesn't find one, return a 404 status automatically.
+\\
+
+We do it using PHP type-hinting. Rather than accepting the standard URL parameter argument, we use type-hinting to say to Laravel ``Give us an \texttt{Article} instead''. Laravel does a little bit of magic\footnote{People often complain if frameworks do too much ``magic''. Rails is famous for it. The type-hinting trick is the only case I'm aware of where Laravel can really be accused of it. It's using \href{https://www.culttt.com/2014/07/02/reflection-php}{Reflection} to do this, which is when a programming language looks at its own code and works things out from it. It's probably not something you'll need to use much.} and tries to find the article. If it finds it then it passes in the article object instead of the URL parameter; if it can't find it then it returns a 404 response immediately and doesn't even run the controller code.
+\\
+
+To get this working, all we need to do is update all the places in our controller where we accepted the URL parameter \texttt{\$id} to ask for an \texttt{Article} instead. We can then get rid of all the calls to \texttt{Article::find()}, as Laravel will have already done that for us:
+
+\phpinputminted{03/figures/04/01-route-model-binding}
+
+
+
+\section{Resources}
+
+It would also be good if we had some control over how our data comes back. For example when we're listing all the articles we probably don't want to send the full article text: it would be a massive JSON output if there were lots of really long articles. And we might not want to send everything from the database back to the user: for example, the \texttt{created\_at} and \texttt{updated\_at} properties probably aren't that useful.
+\\
+
+This is where \textbf{Resources} come in. They let us control the format of the JSON output. We create a \texttt{Resource} class which tells Laravel how to format a specific model. Then, before returning a response in the controller, we pass it through the resource.
+\\
+
+First, let's create one to simplify the output of an article so it only show the \texttt{id}, \texttt{title}, and \texttt{article} fields. As usual, we'll use \texttt{artisan} to do most the work for us:
+
+\begin{minted}{bash}
+    artisan make:resource ArticleResource
+\end{minted}
+
+This will create a file in \texttt{app/Http/Resources} with the boilerplate code in place. We need to update the \texttt{toArray()} method to return the format that we'd like. In the \texttt{Resource} class we can access the properties of a model using \texttt{\$this}:
+
+\phpinputminted{03/figures/04/02-resource}
+
+Next, we need to update the \texttt{Articles} controller to use the resource for output.
+
+\pagebreak
+
+First, tell the controller where to find the \texttt{ArticleResource} class:
+
+\begin{minted}{php}
+    use App\Http\Resources\ArticleResource;
+\end{minted}
+
+Then we need to update all of the methods that return an article to use the resource:
+
+\phpinputminted{03/figures/04/03-resource-controller}
+
+If you do an API call to any of these routes now you'll notice that the response is also wrapped in an outer \texttt{data} property by default. It is possible to change this, but it's actually quite useful once you start to deal with more complex APIs (e.g. so you can have a separate property to track pagination).
+\\
+
+We also want to make the \texttt{list} method only show the \texttt{id} and \texttt{title} properties. We'll need to create a separate resource for this as we're outputting a different format.
+
+\pagebreak
+
+Again, we'll use \texttt{artisan} to make a resource:
+
+\begin{minted}{bash}
+    artisan make:resource ArticleListResource
+\end{minted}
+
+Then update the \texttt{toArray()} method to output just the \texttt{id} and \texttt{title} properties:
+
+\phpinputminted{03/figures/04/04-index-resource}
+
+Finally we'll need to update the controller.
+\\
+
+First let the controller know about \texttt{ArticleListResource}:
+
+\begin{minted}{php}
+    use App\Http\Resources\ArticleListResource;
+\end{minted}
+
+Then update the \texttt{index} method. We're returning a collection of articles, so we'll need to use the \texttt{Resource}'s \texttt{collection} method:
+
+\phpinputminted{03/figures/04/05-index-resource-controller}
+
+
+\section{Validation}
+
+You should always validate any data that gets submitted to your site on the server-side. For a good user-experience you should probably also have validation on the client-side using JavaScript, but it's perfectly possible that a user might have JavaScript disabled or that a malicious party might be making a direct request.
+\\
+
+The idea of validation is to turn a certain class of \texttt{500} errors into \texttt{4xx} errors. Remember, client-side code can't do anything useful with \texttt{500} errors, but \texttt{4xx} errors have specific meanings.
+\\
+
+To avoid any MySQL errors we need to at minimum validate the following:
+
+\begin{itemize}
+    \item \texttt{required}: any database fields that cannot be \texttt{null} should have the \texttt{required} validation
+    \item \texttt{max:255}: if you're storing data in a \texttt{VARCHAR} then make sure you have max length validation that matches the \texttt{VARCHAR} length
+    \item \texttt{date}/\texttt{integer}/\texttt{string}: check formats before inserting into MySQL. These are not the database migration types, but validation specific rules - so \texttt{VARCHAR} and \texttt{TEXT} both count as \texttt{string} for validation. You will also need the \texttt{nullable} validation if the field is not required.
+\end{itemize}
+
+As well as the cases above there are plenty of \href{http://laravel.com/docs/master/validation#available-validation-rules}{other bits of validation} that you can do easily with Laravel.
+\\
+
+As with everything in Laravel, we'll need to create a new type of class. In this case it's a \texttt{FormRequest} class. The \texttt{FormRequest} class actually inherits everything from the \texttt{Request} class that we're already using in our controller when we want to work with the request the user made.
+\\
+
+Use \texttt{artisan} to create a \texttt{FormRequest} class:
+
+\begin{minted}{bash}
+    artisan make:request ArticleRequest
+\end{minted}
+
+This will create a file in \texttt{app/Http/Requests}. The \texttt{ArticleRequest} class has two methods. We first need to return \texttt{true} from the \texttt{authorize} method: this method can be very useful when you support user logins in your API, but for now we'll just assume everyone can make requests. The \texttt{rules} method needs to return an associative array, where the property name is the JSON property that needs validating and its value is an array of validation rules:
+
+\phpinputminted{03/figures/04/06-validation}
+
+
+Finally we need to  update the \texttt{Articles} controller to use our validated request instead of the standard \texttt{Request} object. First let it know where the \texttt{ArticleRequest} class lives:
+
+\begin{minted}{php}
+    use App\Http\Requests\ArticleRequest;
+\end{minted}
+
+And then update the type-hinting on the \texttt{store} and \texttt{update} methods to use the \texttt{ArticleRequest} class instead of \texttt{Request}:
+
+\phpinputminted{03/figures/04/07-type-hint}
+
+This works because \texttt{ArticleRequest} is a descendant of \texttt{Request}, so it has all of the same methods and properties.
+
+
+\section{CORS}
+
+Although we can make requests to our API using Postman and the like, we won't be able to do it from a modern web browser - which is generally where we'd like to be making the requests from. By default browsers won't allow JS from domain \textit{x} to get data from domain \textit{y} as they have different \textbf{origins}, a potential security issue. So, if our API is on a separate domain, which it more than likely will be, we need to be able to make cross-origin requests.
+\\
+
+Modern browsers use something called \textbf{Cross-Origin Resource Sharing} to handle this. They expect certain HTTP headers to be set on API responses to say who can and can't use the API.
+\\
+
+We don't want to write the code for this ourselves as it's fairly complicated. Luckily, \href{https://github.com/barryvdh/laravel-cors}{someone else has done it for us}.
+\\
+
+Install the CORS library with \texttt{composer}:
+
+\begin{minted}{bash}
+    composer require barryvdh/laravel-cors
+\end{minted}
+
+Then run the following command:
+
+\begin{minted}{bash}
+    php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
+\end{minted}
+
+This copies the necessary config files out of the \texttt{vendor} directory.
+\\
+
+We need to tell Laravel to load the CORS library, so add the following line to the \texttt{providers} property in \texttt{config/app.php}:
+
+\phpinputminted{03/figures/04/08-provider}
+
+We also need to tell Laravel that it should use the CORS library as \textbf{middleware} for every HTTP request that gets made. Middleware is code that runs before/after the controller code to modify the request/response in some way.
+\\
+
+To add the CORS middleware, in \texttt{app/Http/Kernel.php}:
+
+\phpinputminted{03/figures/04/09-middleware}
+
+CORS only kicks in if you have an \texttt{Origin} header, which Postman doesn't send by default. But you can add one if you like:
+
+\begin{minted}{diff}
+    Origin: https://wombat.pyjamas
+\end{minted}
+
+You should get back an \texttt{Access-Control-Allow-Origin} header in the response.
+
+
+
+\section{Additional Resources}
+
+\begin{itemize}[leftmargin=*]
+    \item \href{https://laravel.com/docs/master/routing#route-model-binding}{Route Model Binding}
+    \item \href{https://laravel.com/docs/master/eloquent-resources}{API Resources}
+    \item \href{http://laravel.com/docs/master/validation}{Validation}
+    \item \href{https://github.com/barryvdh/laravel-cors}{Laravel CORS Library}
+    \item \href{http://laravel.com/docs/master/middleware}{Middleware}
+\end{itemize}
