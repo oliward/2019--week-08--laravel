@@ -23,13 +23,13 @@ First, go back over all of the previous challenges this week and add appropriate
 
 ### Instructions
 
-For each question, create the class(es) in the correct namespace and then copy the given code as a method in your `Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/book-marks/blob/develop/week-08--laravel/challenges/02/01/answers/app/Challenges.php). To check your answers run `php bootstrap.php`.
+For each question, create the class(es) in the correct namespace and then copy the given code as a method in your `Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/week-08--laravel/blob/master/challenges/02/01/answers/app/Challenges.php). To check your answers run `php bootstrap.php`.
 
 **Use Git to make a commit every time you get an answer working. Use sensible commit messages.**
 
 ### Answers
 
-[Answers on GitHub](https://github.com/develop-me/book-marks/tree/develop/week-08--laravel/challenges/02/01/answers)
+[Answers on GitHub](https://github.com/develop-me/week-08--laravel/blob/master/challenges/02/01/answers)
 
 ## Challenges
 
@@ -156,7 +156,7 @@ For each question, create the class(es) in the correct namespace and then copy t
     }
     ```
 
-1) Copy across your `Book`, `Shelf`, and `Library` classes from yesterday and put them in the `App\Library` namespace (you'll need to change the `namespace` declaration in each file).
+1) Copy across your `Book`, `Shelf`, and `Library` classes from yesterday. Keep them in the `App\Library` namespace.
 
     Now create a `Titled` interface with a `public function title()` method.
 
@@ -207,7 +207,7 @@ For each question, create the class(es) in the correct namespace and then copy t
 
 ### Instructions
 
-As before, for each question, create the class(es) in the correct namespace and then copy and paste the given code as a method in your `App\Tricksy\Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/book-marks/blob/develop/week-08--laravel/challenges/02/01/answers/app/Tricksy/Challenges.php).
+As before, for each question, create the class(es) in the correct namespace and then copy and paste the given code as a method in your `App\Tricksy\Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/week-08--laravel/blob/master/challenges/02/01/answers/app/Tricksy/Challenges.php).
 
 ### Challenges
 

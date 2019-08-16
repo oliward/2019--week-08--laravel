@@ -41,7 +41,7 @@ dump($potato->hasGrown()); // true
 // 3
 echo "\nQuestion 3:\n";
 
-use App\Books\Book;
+use App\Library\Book;
 
 $book = new Book("Zero: The Biography of a Dangerous Idea", 256);
 
@@ -57,7 +57,7 @@ dump($book->currentPage()); // 38
 // 4
 echo "\nQuestion 4:\n";
 
-use App\Books\Shelf;
+use App\Library\Shelf;
 
 $shelf = new Shelf();
 $shelf->addBook($book);
@@ -70,7 +70,7 @@ dump($shelf->titles()); // array:3 [ 0 => "Zero: The Biography of a Dangerous Id
 // 5
 echo "\nQuestion 5:\n";
 
-use App\Books\Library;
+use App\Library\Library;
 
 $badLibrary = new Library();
 $badLibrary->addShelf($shelf);

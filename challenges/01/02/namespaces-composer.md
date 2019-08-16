@@ -9,13 +9,13 @@
 
 ### Instructions
 
-For each question, create the class(es) in the correct namespace and then copy and paste the given code into `index.php`. Don't get rid of the previous questions, as some of them rely on each other's variables. You'll end up with a fairly long `index.php` file [like this](https://github.com/develop-me/book-marks/blob/develop/week-08--laravel/challenges/01/02/answers/index.php). To check your answers run `php index.php`.
+For each question, create the class(es) in the correct namespace and then copy and paste the given code into `index.php`. Don't get rid of the previous questions, as some of them rely on each other's variables. You'll end up with a fairly long `index.php` file [like this](https://github.com/develop-me/week-08--laravel/blob/master/challenges/01/02/answers/index.php). To check your answers run `php index.php`.
 
 **Use Git to make a commit every time you get an answer working. Use sensible commit messages.**
 
 ### Answers
 
-[Answers on GitHub](https://github.com/develop-me/book-marks/tree/develop/week-08--laravel/challenges/01/02/answers)
+[Answers on GitHub](https://github.com/develop-me/week-08--laravel/blob/master/challenges/01/02/answers)
 
 
 ## Challenges
@@ -59,12 +59,12 @@ For each question, create the class(es) in the correct namespace and then copy a
     ```
 
 
-1) Create a class `Book` in the `App\Books` namespace. It should take a title and its number of pages in the constructor. It should have a `read()` method, which takes a number of pages that have been read. It should also have a `currentPage()` page method which tells you which page you're currently on.
+1) Create a class `Book` in the `App\Library` namespace. It should take a title and its number of pages in the constructor. It should have a `read()` method, which takes a number of pages that have been read. It should also have a `currentPage()` page method which tells you which page you're currently on.
 
     ```php
     echo "\nQuestion 3:\n";
 
-    use App\Books\Book;
+    use App\Library\Book;
 
     $book = new Book("Zero: The Biography of a Dangerous Idea", 256);
 
@@ -82,7 +82,7 @@ For each question, create the class(es) in the correct namespace and then copy a
     ```php
     echo "\nQuestion 4:\n";
 
-    use App\Books\Shelf;
+    use App\Library\Shelf;
 
     $shelf = new Shelf();
     $shelf->addBook($book);
@@ -97,7 +97,7 @@ For each question, create the class(es) in the correct namespace and then copy a
     ```php
     echo "\nQuestion 5:\n";
 
-    use App\Books\Library;
+    use App\Library\Library;
 
     $badLibrary = new Library();
     $badLibrary->addShelf($shelf);
@@ -110,6 +110,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 
     dump($badLibrary->titles()); // array:5 [ 0 => "Zero: The Biography of a Dangerous Idea" 1 => "The Catcher in the Rye" 2 => "Stamped from the Beginning" 3 => "The Power Broker" 4 => "Delusions of Gender" ]
     ```
+
 
 ## Tricksy
 
@@ -129,7 +130,9 @@ For each question, create the class(es) in the correct namespace and then copy a
     dump(Peep::getAges([$alfred, $jasmine, $walker])); // [52, 65, 15] (or there abouts)
     ```
 
-1) [Faker](https://github.com/fzaninotto/Faker) is a package that lets you generate random data. Add it to your project and then update the previous question to use generated names and birthdates. Run it a few times and you'll see that it changes values each time. Read through the documentation and see if you can make it use the same generated data each time.
+1) Use [Faker](https://github.com/fzaninotto/Faker) to update the previous question to use generated names and birthdates. Run it a few times and you'll see that it changes values each time. Read through the documentation and see if you can make it use the same generated data each time.
+
+1) Use the [Faker](https://github.com/fzaninotto/Faker) library to test the `email()` method of your `Validation` class from yesterday. Check it against 100 different generated email addresses.
 
 
 ## Über-Tricksy

@@ -2,9 +2,30 @@
 
 Create a new `.php` file for each challenge and call it something sensible. Copy the given boilerplate into the file. Only edit the file where it says "your class(es) here". Make sure you get the expected results. You'll notice we're using `var_dump()` and not `echo`: `echo` is only really useful for strings.
 
+You'll need to look at how the class is being used in the test code to work out how to write the class.
+
 **Use Git to make a commit every time you get an answer working. Use sensible commit messages.**
 
 **Hint**: Remember, it's good practice to declare all of your properties at the top of the class and to make them private.
+
+1) Create a class that represents a phone
+
+    ```php
+    <?php
+
+    // ... your class here
+
+    // create three phones
+    $iPhone = new Phone("Apple", "iPhone XS");
+    $galaxy = new Phone("Samsung", "Galaxy");
+    $retro = new Phone("Nokia", "3210");
+
+    // use methods to find out model/make
+    var_dump($iPhone->model()); // string(9) "iPhone XS"
+    var_dump($retro->make()); // string(5) "Nokia"
+    var_dump($galaxy->make()); // string(7) "Samsung"
+    var_dump($iPhone->make()); // string(5) "Apple"
+    ```
 
 1) Create a class that represents a light switch
 
@@ -26,6 +47,8 @@ Create a new `.php` file for each challenge and call it something sensible. Copy
 
     var_dump($lightSwitch->isOn()); // bool(false)
     ```
+
+
 
 1) Create a class that represents a car
 
@@ -75,6 +98,72 @@ Create a new `.php` file for each challenge and call it something sensible. Copy
     var_dump($address->fullAddress()); // string(34) "12 Cantelope Way, SW5 8RQ, Swansea"
     ```
 
+1) Create a class that lets you do things with a string.
+
+    ```php
+    <?php
+
+    // ... your classes here
+
+    $string = new Stringy("Na");
+
+    // it can lowercase a string
+    var_dump($string->lower()); // string(2) "na"
+
+    // it can uppercase a string
+    var_dump($string->upper()); // string(2) "NA"
+
+    // it can concatenate
+    var_dump($string->append("blah")); // string(6) "Nablah"
+
+    // it can repeat a string
+    var_dump($string->repeat(5)); // string(10) "NaNaNaNaNa"
+    ```
+
+1) Create a class that validates emails and postcodes.
+
+    ```
+    <?php
+
+    // ... your class here
+
+    $validator = new Validator();
+
+    // it validates email addresses
+    echo "Email\n";
+    var_dump($validator->email("alfonso@example.com")); // bool(true)
+    var_dump($validator->email("wombat+12@spoons.plumbing")); // bool(true)
+    var_dump($validator->email("blah blah blah! alfonso@example.com")); // bool(false)
+    var_dump($validator->email("wombat@spoonsplumbing")); // bool(false)
+    var_dump($validator->email("wombatspoons")); // bool(false)
+    var_dump($validator->email("@wombatspoons")); // bool(false)
+
+    // it validates postcodes
+    echo "\nPostcode\n";
+    var_dump($validator->postcode("BS4 3UH")); // bool(true)
+    var_dump($validator->postcode("S10 4GR")); // bool(true)
+    var_dump($validator->postcode("BS14 9DI")); // bool(true)
+    var_dump($validator->postcode("12B DI9")); // bool(false)
+    var_dump($validator->postcode("EST4 DD29")); // bool(false)
+    var_dump($validator->postcode("blah blah BS5 8RJ blah blah")); // bool(false)
+    ```
+
+1) Create a class that performs a series of transformations on a string. You can use the `get()` method to get the final result.
+
+    ```
+    <?php
+
+    // ... your class here
+
+    $string1 = new StringyRedux("Oop");
+    var_dump($string1->lower()->repeat(2)->get()); // string(6) "oopoop"
+
+    $string2 = new StringyRedux("Spoon");
+    var_dump($string2->repeat(2)->upper()->append("!")->get()); // string(11) "SPOONSPOON!"
+
+    $string3 = new StringyRedux("Na");
+    var_dump($string3->repeat(2)->append(" ")->repeat(8)->append(" ")->append("Batman!")->get()); // string(48) "NaNa NaNa NaNa NaNa NaNa NaNa NaNa NaNa  Batman!"
+    ```
 
 ## Tricksy Challenges
 

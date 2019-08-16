@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Books;
+namespace App\Library;
 
 class Shelf
 {
