@@ -109,7 +109,7 @@ See the \href{https://symfony.com/doc/current/components/var_dumper.html}{VarDum
 This is part of Laravel, which we'll be covering later. It basically lets us handle arrays in a way which isn't utterly horrible\footnote{PHP's built-in array handling functions are utterly inconsistent ``Because that's how PHP rolls: Like a square wheel''.}.
 \\
 
-We install it by running \texttt{composer require illuminate/support}. It's got \href{http://laravel.com/docs/master/collections#available-methods}{tonnes of really useful methods}, but we'll just look at four of them here: our old friends \texttt{map()}, \texttt{filter()}, and \texttt{reduce()}, as well as a very useful one called \texttt{pluck}.
+We install it by running \texttt{composer require illuminate/support}. It's got \href{http://laravel.com/docs/master/collections#available-methods}{tonnes of really useful methods}, but we'll just look at four of them here: our old friends \texttt{map()}, \texttt{filter()}, and \texttt{reduce()}, as well as a very useful one called \texttt{pluck()}.
 \\
 
 Generally collection methods return a new collection object. You can turn a \texttt{Collection} back into a standard array by calling its \texttt{all()} method.
@@ -149,6 +149,20 @@ The Carbon library makes working with dates in PHP much easier.\footnote{I have 
 \phpinputminted{01/figures/03/05-Carbon}
 
 There are many more features listed in the \href{https://carbon.nesbot.com/docs/}{Carbon documentation}.
+
+
+\subsection{\texttt{fzaninotto/Faker}}
+
+\href{https://github.com/fzaninotto/Faker}{Faker} is a library that generates fake data for you. This can be useful for ``seeding'' databases: generating test data to make sure that everything's working. We install it with \texttt{composer require nesbot/carbon}.
+
+\phpinputminted{01/figures/03/06-Faker}
+
+Faker supports \href{https://github.com/fzaninotto/Faker#formatters}{hundreds of different types of data}: IP addresses, credit card numbers, dates, colours, images, \&c.
+
+
+\begin{infobox}{The Case of the Missing Students?}
+    When building the student preparation app for the course we created lots of fake users to make sure everything was working. Then, when real students started signing up, they didn't appear in the admin interface. It took a bit of sleuthing to work out what was going wrong: the query to fetch the students should have been checking for the student ``type'' field, but in actual fact was checking the student's name for the word ``student''. And it just so happened that every single test student that we'd added to the database had the name ``Test Student <number>''! If we'd been using Faker to generate random names we'd have noticed the issue earlier!
+\end{infobox}
 
 \section{Additional Resources}
 

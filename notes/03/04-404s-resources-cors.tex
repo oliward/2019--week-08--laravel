@@ -3,8 +3,8 @@ Now, while we have got a basic API up and running, it's lacking some fairly impo
 \begin{itemize}
     \item \textbf{404s}: if we request an article that doesn't exist we'll get a 500 error
     \item \textbf{Responses}: the responses contain data we might not want to share
-    \item \textbf{CORS Support}: due to the security requirements of modern web browsers, they won't be able to use our API
     \item \textbf{Validation}: we can submit absolutely anything to the API at the moment, which will lead to all sorts of MySQL errors
+    \item \textbf{CORS Support}: due to the security requirements of modern web browsers, they won't be able to use our API
 \end{itemize}
 
 
@@ -65,8 +65,7 @@ If you do an API call to any of these routes now you'll notice that the response
 \\
 
 We also want to make the \texttt{list} method only show the \texttt{id} and \texttt{title} properties. We'll need to create a separate resource for this as we're outputting a different format.
-
-\pagebreak
+\\
 
 Again, we'll use \texttt{artisan} to make a resource:
 
@@ -175,7 +174,7 @@ To add the CORS middleware, in \texttt{app/Http/Kernel.php}:
 
 \phpinputminted{03/figures/04/09-middleware}
 
-CORS only kicks in if you have an \texttt{Origin} header, which Postman doesn't send by default. But you can add one if you like:
+CORS only kicks in if you have an \texttt{Origin} header, which Postman doesn't send by default. But, if you want to check it's working, you can add one:
 
 \begin{minted}{diff}
     Origin: https://wombat.pyjamas

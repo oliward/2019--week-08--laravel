@@ -80,6 +80,8 @@ You can see that both methods are already partly written for us. The \texttt{up}
     These columns can be very useful when working with more complex data tables. Later in the week we'll look at a case when they are perhaps not necessary, but for now, it's best to keep them.
 \end{infobox}
 
+\pagebreak
+
 However, we do need to update the \texttt{up} method to include the other columns:
 
 \stdinputminted[firstline=3]{php}{03/figures/02/02-migration-up.php}
@@ -98,6 +100,22 @@ If you look at the database now you'll see that the \texttt{articles} table has 
 
 If you made a mistake, you can run \texttt{artisan migrate:rollback} to undo the last set of migrations that you ran, make any changes, and then run \texttt{artisan migrate} again.
 
+\pagebreak
+
+\begin{infobox}{When migrations go bad}
+    Sometimes database migrations go wrong: you might mistype a table name or something, then when you try to run the migrations you just get a bunch of errors. Often no amount of \texttt{up}ing and \texttt{down}ing can get you out of this. There are two useful commands to try:
+
+    \begin{minted}{bash}
+        # runs all of the down methods, then runs all the ups again
+        artisan migrate:refresh
+
+        # wipes the database, then runs all the ups again
+        artisan migrate:fresh
+    \end{minted}
+
+    Be aware that running either of these command will wipe \textit{all} data in your database.
+\end{infobox}
+
 
 
 
@@ -111,7 +129,6 @@ Having to write queries out as strings is pretty horrible at the best of times. 
 
 That's where \textbf{Object Relational Mapper}s (ORM) come in. An ORM lets you work with plain old PHP objects, but under the hood it's actually writing and running database queries for you. Laravel's ORM library is called \textbf{Eloquent}.\footnote{Good name.}
 
-\pagebreak
 
 \subsection{Writing Data}
 

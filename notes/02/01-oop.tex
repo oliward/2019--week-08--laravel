@@ -1,4 +1,4 @@
-So far, most of the code you've written has been ``procedural'': start at the top of a file, run through it, maybe call a few functions as you go, and then finish at the end. This is fine for simple programs or when we're just working inside an existing system (e.g. WordPress), but it doesn't really scale to larger applications.
+So far, all of the PHP code you've written has been ``procedural'': start at the top of a file, run through it, maybe call a few functions as you go, and then finish at the end. This is fine for simple programs or when we're just working inside an existing system (e.g. WordPress), but it doesn't really scale to larger applications.
 \\
 
 The problem comes because we need to manage \textbf{state}: keeping track of all the values in our code. For a large app you could easily have thousands of values that need storing. Naming and keeping track of all these variables would become a nightmare if they were all in the same global scope.
@@ -124,7 +124,7 @@ This is where \textbf{abstract classes} come in. These are classes that are not 
 We can also create \texttt{abstract} method signatures. These allow us to say that a child class \textit{has} to implement a method with the given name and parameters. We'll get an error if we don't.
 \\
 
-This gets rounds both issues: we won't be able to instance \texttt{Mailer} and we can make sure any of its children have a \texttt{send()} method:
+This gets round both issues: we won't be able to instance \texttt{Mailer} and we can make sure any of its children have a \texttt{send()} method:
 
 \phpinputminted{02/figures/01/11-Mailer-redux}
 
@@ -176,7 +176,7 @@ We would use it in \texttt{MailingList} in exactly the same way:
 
 \phpinputminted{02/figures/01/17-MailingList-interface}
 
-Now we could only pass in classes that implement the \texttt{MailerInterface} interface.
+Interfaces are also a type declaration. So, now we could only pass in classes that implement the \texttt{MailerInterface} interface.
 \\
 
 This might at first not seem like much of an advantage over using an abstract class, but a class can only \texttt{extend} a single class, whereas it can \texttt{implement} as many interfaces as it likes:
@@ -195,7 +195,7 @@ This is a core idea in OOP. But one that is often not talked about with beginner
 The reason interfaces are such a powerful idea is because they focus solely on the messages and don't tell you anything about the implementation. This is important because of encapsulation. If we have to worry about how a specific object does something, then we can't treat it as a black box.
 \\
 
-This is also why try to use only \texttt{private} properties: if a property is \texttt{public} then we need to know about how the internals of the class work.
+This is also why we try to only use \texttt{private} properties: if a property is \texttt{public} then we need to know about how the internals of the class work.
 \\
 
 Inheritance can break the idea of encapsulation because in order to use it you often need to know about the \textit{internal} workings of the parent classes: Were these properties declared? Has another class in the hierarchy overriden anything? This makes it much harder to work with and it gets worse as the codebase gets bigger. What if you need to change a parent class: will it break any of the children?
@@ -217,7 +217,7 @@ If you read any books about OOP they'll focus a lot of their time on inheritance
 That's not to say it isn't useful. It's totally fine to inherit code that frameworks/libraries provide, as in these cases you're generally adding one tiny bit of functionality to something that's much more complicated under-the-hood.\footnote{Although some purists would say even in this case there are better alternatives: see the \href{https://www.thoughtfulcode.com/orm-active-record-vs-data-mapper/}{Active Record vs Data Mapper} debate} But if it's code that you've written, it's always worthwhile thinking ``Do I really need to use inheritance?''
 \\
 
-Sandi Metz suggests not using inheritance until you have \textit{at least} three classes that are \textit{definitely} all using exactly the same methods. You should never start out by writing an abstract class: write the actual use-cases first and only write an abstract class if you definitely need one. If you do use inheritance then try not to create layers and layers of it: maybe have a rule that you'll only ever inherit through one layer.
+Sandi Metz\footnote{She's been doing OOP since it was invented in the 70s, so she probably knows what she's talking about} suggests not using inheritance until you have \textit{at least} three classes that are \textit{definitely} all using exactly the same methods. You should never start out by writing an abstract class: write the actual use-cases first and only write an abstract class if you definitely need one. If you do use inheritance then try not to create layers and layers of it: maybe have a rule that you'll only ever inherit through one layer.
 
 
 \subsection{Composition}
@@ -228,6 +228,8 @@ Think back to the \texttt{Animal}, \texttt{Mammal}, \texttt{Primate} \&c. exampl
 \\
 
 The idea of \textit{composition over inheritance} is that rather than sharing behaviour with inheritance, we share it using interfaces and shared classes. Rather than having a \texttt{giveBirthToLiveYoung()} method that all \texttt{Mammal} objects have to inherit, instead have a \texttt{GiveBirthToLiveYoung} interface, which is implemented only by those mammals that need to. If a lot of those classes share the same implementation of that method then consider moving it into a separate class that they can all share. It might require a bit more code to get working, but it is much easier to make changes to.
+
+\pagebreak
 
 \begin{infobox}{The Law of Demeter}
     The ``Law of Demeter'' is a guideline for OOP about how objects should use other objects. Expressed succinctly:
@@ -241,6 +243,7 @@ The idea of \textit{composition over inheritance} is that rather than sharing be
     \stdinputminted[firstline=3,frame=topline]{php}{02/figures/01/19-Demeter.php}
 \end{infobox}
 
+\pagebreak
 
 \section{Additional Resources}
 
@@ -251,4 +254,5 @@ The idea of \textit{composition over inheritance} is that rather than sharing be
     \item \href{https://en.wikipedia.org/wiki/Law\_of\_Demeter}{Wikipedia: The Law of Demeter}
     \item \href{https://www.poodr.com}{Practical Object-Oriented Design in Ruby}: An intermediate book about OOP. In Ruby, but all the key concepts work in PHP too.
     \item \href{https://en.wikipedia.org/wiki/SOLID}{Wikipedia: The SOLID Principles of OOP}: Quite advanced, but incredibly useful if you can get your head round it.
+    \item \href{https://www.youtube.com/channel/UCk3yOoaVtORwXipuLZ3jWNg}{YouTube: Sandi Metz Videos}: If you're doing OOP in a few years time, watch all of these. There's a lifetime of experience in these talks.
 \end{itemize}

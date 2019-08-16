@@ -115,8 +115,6 @@ Because we're using \texttt{create()}, which uses mass assignment, we'll also ne
 
 \phpinputminted{04/figures/02/07-Tag-fillable}
 
-\pagebreak
-
 Now, let's use \texttt{artisan tinker} to see if this works:
 
 \phpinputminted{04/figures/02/08-tinker}
@@ -138,8 +136,6 @@ Then we'll need to update the methods. First, we'll change the \texttt{\$request
 
 \phpinputminted{04/figures/02/09-Articles-tags}
 
-\pagebreak
-
 You'll notice we use the same logic for tags in both methods. It would be good to get rid of the repetition. We can add a method to our \texttt{Article} model:
 
 \phpinputminted{04/figures/02/10-Article-setTags}
@@ -154,8 +150,6 @@ And then update the \texttt{Articles} controller:
 We'll need to add validation rules for tags to \texttt{ArticleRequest}. We'll use the \texttt{array} validation type for the \texttt{tags} field. We can also use the \texttt{.*} notation to add validation for the items inside the \texttt{tags} array. In this case we want them to be strings with a maximum length of 30 (we used a \texttt{VARCHAR(30)} for tags):
 
 \phpinputminted{04/figures/02/12-validation}
-
-\pagebreak
 
 
 \subsection{Resource}
