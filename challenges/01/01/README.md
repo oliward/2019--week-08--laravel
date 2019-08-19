@@ -151,7 +151,7 @@ You'll need to look at how the class is being used in the test code to work out 
 
 1) Create a class that performs a series of transformations on a string. You can use the `get()` method to get the final result.
 
-    ```
+    ```php
     <?php
 
     // ... your class here
