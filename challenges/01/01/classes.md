@@ -122,7 +122,7 @@ You'll need to look at how the class is being used in the test code to work out 
 
 1) Create a class that validates emails and postcodes.
 
-    ```
+    ```php
     <?php
 
     // ... your class here
@@ -143,6 +143,7 @@ You'll need to look at how the class is being used in the test code to work out 
     var_dump($validator->postcode("BS4 3UH")); // bool(true)
     var_dump($validator->postcode("S10 4GR")); // bool(true)
     var_dump($validator->postcode("BS14 9DI")); // bool(true)
+    var_dump($validator->postcode("SW1A 1AA")); // bool(true)
     var_dump($validator->postcode("12B DI9")); // bool(false)
     var_dump($validator->postcode("EST4 DD29")); // bool(false)
     var_dump($validator->postcode("blah blah BS5 8RJ blah blah")); // bool(false)
