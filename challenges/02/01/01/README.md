@@ -123,7 +123,7 @@ To check your answers run `php bootstrap.php`.
 
     - `Bike`: should accept a `Frame` object. Should have an `addWheel` method which you pass a `Wheel` object - it should keep track of all the wheels added.
 
-        It should also have a `describe` method which tells you: "I am a <frame variation> framed bike. I am made of <frame material>. I have <number of wheels> wheels"
+        It should also have a `describe` method which tells you: "I am a `frame-variation` framed bike. I am made of `frame-material`. I have `number-of-wheels` wheels"
 
 
     ```php
