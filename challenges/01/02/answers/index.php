@@ -9,6 +9,15 @@ include_once __DIR__ . '/vendor/autoload.php';
 // 1
 echo "\nQuestion 1:\n";
 
+use App\Hello;
+
+$sayHi = new Hello();
+
+dump($sayHi->hello("Orb")); // "Hello Orb"
+
+// 2
+echo "\nQuestion 2:\n";
+
 use App\Person;
 
 $person1 = new Person("Lynne",  "Ramsay");
@@ -18,8 +27,8 @@ dump($person1->sayHelloTo($person2)); // "Hello Wes Anderson"
 dump($person2->sayHelloTo($person1)); // "Hello Lynne Ramsay"
 
 
-//2
-echo "\nQuestion 2:\n";
+// 3
+echo "\nQuestion 3:\n";
 
 use App\Stuff\Things\Potato;
 
@@ -38,8 +47,8 @@ $potato->water()->water();
 dump($potato->hasGrown()); // true
 
 
-// 3
-echo "\nQuestion 3:\n";
+// 4 4 4 4
+echo "\nQuestion 4:\n";
 
 use App\Library\Book;
 
@@ -54,8 +63,8 @@ $book->read(25);
 dump($book->currentPage()); // 38
 
 
-// 4
-echo "\nQuestion 4:\n";
+// 5
+echo "\nQuestion 5:\n";
 
 use App\Library\Shelf;
 
@@ -67,8 +76,8 @@ $shelf->addBook(new Book("Stamped from the Beginning", 582));
 dump($shelf->titles()); // array:3 [ 0 => "Zero: The Biography of a Dangerous Idea" 1 => "The Catcher in the Rye" 2 => "Stamped from the Beginning" ]
 
 
-// 5
-echo "\nQuestion 5:\n";
+// 6
+echo "\nQuestion 6:\n";
 
 use App\Library\Library;
 

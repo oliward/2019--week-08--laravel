@@ -36,15 +36,15 @@ You'll need to look at how the class is being used in the test code to work out 
 
     $lightSwitch = new LightSwitch();
 
+    // you can check whether it is on or not
+    var_dump($lightSwitch->isOn()); // bool(false)
+
     // you can turn it on
     $lightSwitch->turnOn();
-
-    // you can check whether it is on or not
     var_dump($lightSwitch->isOn()); // bool(true)
 
     // you can turn it off
     $lightSwitch->turnOff();
-
     var_dump($lightSwitch->isOn()); // bool(false)
     ```
 
@@ -168,7 +168,7 @@ You'll need to look at how the class is being used in the test code to work out 
 
 ## Tricksy Challenges
 
-1) Create a `Person` class which takes a name and age in the constructor. Also create a `House` class which has an `addDweller()` method, which you can pass a person into. The house should keep track of its dwellers. The `House` class should have a static method called `census()` which you pass an array of `House` objects: it should return a flat array of all the people in those house.
+1) Create a `Person` class which takes a name and age in the constructor. Also create a `House` class which has an `addDweller()` method, which you can pass a person into. The house should keep track of its dwellers. The `House` class should have a static method called `census()` which you pass an array of `House` objects: it should return a flat array of all the `Person` objects those houses.
 
     **Hint**: PHP has an [`array_merge`](http://php.net/manual/en/function.array-merge.php) function
 
@@ -193,7 +193,7 @@ You'll need to look at how the class is being used in the test code to work out 
     $house2->addDweller($estelle)
            ->addDweller($jana);
 
-    // get back an array with all the peeps in the given houses
+    // get back an array with all Person objects from the houses
     // the actual output will be a bit messier
     // but check it has the right number of people
     var_dump(House::census([$house1, $house2])); // array(4) [$carlton, $ida, $estelle, $jana]

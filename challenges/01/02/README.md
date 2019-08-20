@@ -5,7 +5,15 @@
 - Create a new project directory
 - Get Composer setup to use auto-loading with `App` as the root namespace pointing at the `app` directory
 - Add the `symfony/var-dumper` package
-- Create a single `index.php` file in the root directory and include the Composer auto-loading file
+- Create a single `index.php` file in the **root** directory:
+
+    ```
+    app/
+    vendor/
+    composer.json
+    index.php
+    ```
+- Include the Composer auto-loading file at the top of `index.php`
 
 ### Instructions
 
@@ -20,12 +28,25 @@ For each question, create the class(es) in the correct namespace and then copy a
 
 ## Challenges
 
+1) Create a class `Hello` in the `App` namespace. It should have a method called `hello` which accepts a string. **Don't overthink this one!** It's more about the namespaces than the class.
+
+    ```php
+    echo "\nQuestion 1:\n";
+
+    use App\Hello;
+
+    $sayHi = new Hello();
+
+    dump($sayHi->hello("Orb")); // "Hello Orb"
+    dump($sayHi->hello("Horse")); // "Hello Horse"
+    ```
+
 1) Create a class `Person` in the `App` namespace. It should accept a first and last name on creation. It should have a `sayHelloTo()` method that takes another `Person` and says hello to them. Make sure your properties are all private: so you'll need to a create `fullName()` method too.
 
     Use the class as follows in your `index.php`:
 
     ```php
-    echo "\nQuestion 1\n";
+    echo "\nQuestion 2\n";
 
     use App\Person;
 
@@ -39,7 +60,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 1) Create a class `Potato` in the `App\Stuff\Things` namespace. It should have a `water()` and `hasGrown()` method. `hasGrown()` should return false until the `Potato` has been watered five or more times.
 
     ```php
-    echo "\nQuestion 2:\n";
+    echo "\nQuestion 3:\n";
 
     use App\Stuff\Things\Potato;
 
@@ -62,7 +83,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 1) Create a class `Book` in the `App\Library` namespace. It should take a title and its number of pages in the constructor. It should have a `read()` method, which takes a number of pages that have been read. It should also have a `currentPage()` page method which tells you which page you're currently on.
 
     ```php
-    echo "\nQuestion 3:\n";
+    echo "\nQuestion 4:\n";
 
     use App\Library\Book;
 
@@ -80,7 +101,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 1) Create a `Shelf` class. It should have an `addBook()` method which gets passed a `Book`. It should also have a `titles()` method, which lists the titles of all the books on the shelf.
 
     ```php
-    echo "\nQuestion 4:\n";
+    echo "\nQuestion 5:\n";
 
     use App\Library\Shelf;
 
@@ -95,7 +116,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 1) Create a class `Library`. It should have an `addShelf()` method, which takes a `Shelf` object. It should have a `titles()` method that lists all the titles of all the books on all the shelves in the library.
 
     ```php
-    echo "\nQuestion 5:\n";
+    echo "\nQuestion 6:\n";
 
     use App\Library\Library;
 
@@ -114,7 +135,7 @@ For each question, create the class(es) in the correct namespace and then copy a
 
 ## Tricksy
 
-1) Create a class `Person` in the `App\People` namespace. It should accept a name and birthdate (string). It should have a static method called `getAges()` which takes an array of `Person` objects and returns an array of ages.
+1) Create a class `Person` in the `App\People` namespace. It should accept a name and birthdate (string). It should have a static method called `getAges()` which takes an array of `Person` objects and returns an array of ages. Use the `map()` method of the `Illuminate\Support\Collection` class.
 
     Use the class as follows in your `index.php`:
 

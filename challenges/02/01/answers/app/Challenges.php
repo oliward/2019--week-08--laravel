@@ -15,6 +15,9 @@ class Challenges
         echo "\nChallenges\n";
 
         // load challenges
+        $this->counter();
+        $this->beanCounter();
+        $this->bike();
         $this->spoon();
         $this->languages();
         $this->greet();
@@ -27,9 +30,67 @@ class Challenges
         $tricksy->start();
     }
 
+    public function counter()
+    {
+        echo "\n01)\n";
+
+        $counter = new Counter\Counter();
+        $counter->increment();
+        $counter->increment();
+        $counter->increment();
+
+        dump($counter->count()); // 3
+    }
+
+    public function beanCounter()
+    {
+        echo "\n02)\n";
+
+        $counter = new Counter\Counter();
+        $beans = new Counter\BeanCounter($counter);
+        $beans->addBean()->addBean();
+
+        dump($beans->howMany()); // 2
+
+        try {
+            new Counter\BeanCounter(12);
+            dump("Accepted. Oops!"); // if you see this, something's not right
+        } catch (\TypeError $e) {
+            dump("Not accepted. Good work!"); // if you see this, you've done it right
+        }
+    }
+
+    public function bike()
+    {
+        echo "\n03)\n";
+
+        // Create two new wheels
+        $wheel1 = new Bike\Wheel(25, "hybrid");
+        $wheel2 = new Bike\Wheel(27, "hybrid");
+
+        // ignores invalid types
+        $wheel1->setType("wombat");
+        dump($wheel1->type()); // hybrid
+
+        // Create a frame
+        $frame = new Bike\Frame("diamond", "bamboo");
+
+        // ignores invalid materials
+        $frame->setMaterial("steel");
+        $frame->setMaterial("wombat");
+        dump($frame->material()); // steel
+
+        // Create a bike, passing in the frame
+        $bike = new Bike\Bike($frame);
+        // Add wheels to the bike
+        $bike->addWheel($wheel1)->addWheel($wheel2);
+
+        dump($bike->describe()); // "I am a diamond framed bike. I am made of bamboo. I have 2 wheels"
+    }
+
     public function spoon()
     {
-        echo "\n01) Spoon\n";
+        echo "\nInheritance 01) Spoon\n";
 
         $spoon = new Cutlery\Spoon();
         $runcible = new Cutlery\RuncibleSpoon();
@@ -45,7 +106,7 @@ class Challenges
 
     public function languages()
     {
-        echo "\n02) Languages\n";
+        echo "\nInheritance 02) Languages\n";
 
         $english = new Languages\English();
         $french = new Languages\French();
@@ -63,7 +124,7 @@ class Challenges
 
     public function greet()
     {
-        echo "\n03) Greet\n";
+        echo "\nInheritance 03) Greet\n";
 
         $english = new Languages\English();
         $french = new Languages\French();
@@ -76,7 +137,7 @@ class Challenges
 
     public function shapes()
     {
-        echo "\n04) Shapes\n";
+        echo "\nInterfaces 01) Shapes\n";
 
         // create new shapes
         $square = new Shapes\Square(4);
@@ -93,7 +154,7 @@ class Challenges
 
     public function extrude()
     {
-        echo "\n05) Extrude\n";
+        echo "\nInterfaces 02) Extrude\n";
 
         // create 2D objects
         $square = new Shapes\Square(4);
@@ -115,7 +176,7 @@ class Challenges
 
     public function library()
     {
-        echo "\n06) Library\n";
+        echo "\nInterfaces 03) Library\n";
 
         $shelf = new Library\Shelf();
         $shelf->addItem(new Library\Book("Zero: The Biography of a Dangerous Idea", 256));

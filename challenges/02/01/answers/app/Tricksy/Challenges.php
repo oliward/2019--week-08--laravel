@@ -18,7 +18,7 @@ class Challenges
 
     public function vehicles()
     {
-        echo "\n01) Vehicles\n";
+        echo "\nInheritance 01) Vehicles\n";
 
         $car = new Vehicles\Car();
         $plane = new Vehicles\Plane();
@@ -54,7 +54,7 @@ class Challenges
 
     public function alphabet()
     {
-        echo "\n02) Alphabet\n";
+        echo "\nInterfaces 01) Alphabet\n";
 
         // create new Alphabet object
         $alphabet = new Alphabet();
@@ -67,7 +67,7 @@ class Challenges
 
     public function range()
     {
-        echo "\n03) Range\n";
+        echo "\nInterfaces 02) Range\n";
 
         // create new Range object
         $range = new Range(10, 50);

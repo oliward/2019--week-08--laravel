@@ -1,29 +1,12 @@
-# OOP
+# Inheritance
 
-First, go back over all of the previous challenges this week and add appropriate type-hinting to any methods where you pass in an object.
-
-### Setup
-
-- Create a new project directory
-- Get Composer setup to use auto-loading with `App` as the root namespace pointing at the `app` directory
-- Add the `symfony/var-dumper` package
-- Create a `bootstrap.php` file in the root directory and include the Composer auto-loading file
-- Create a new class `Challenges` in the `App` namespace. It should have a `start` method.
-- Add the following to `bootstrap.php`:
-
-    ```php
-    // bootstrap code
-    use App\Challenges;
-
-    $challenges = new Challenges();
-    $challenges->start();
-    ```
-
-    You shouldn't need to add any other code to `bootstrap.php`
+Work from the same directory/setup as the previous set of challenges. First, complete all challenges from earlier in the day.
 
 ### Instructions
 
-For each question, create the class(es) in the correct namespace and then copy the given code as a method in your `Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/week-08--laravel/blob/master/challenges/02/01/answers/app/Challenges.php). To check your answers run `php bootstrap.php`.
+For each question, create the class(es) in the correct namespace and then copy the given code as a method in your `Challenges` class, then call the new method from the `start()` method. The `Challenges` class will get quite long and [look something like this](https://github.com/develop-me/week-08--laravel/blob/master/challenges/02/01/answers/app/Challenges.php).
+
+To check your answers run `php bootstrap.php`.
 
 **Use Git to make a commit every time you get an answer working. Use sensible commit messages.**
 
@@ -38,7 +21,7 @@ For each question, create the class(es) in the correct namespace and then copy t
     ```php
     public function spoon()
     {
-        echo "\n01) Spoon\n";
+        echo "\nInheritance 01) Spoon\n";
 
         $spoon = new Cutlery\Spoon();
         $runcible = new Cutlery\RuncibleSpoon();
@@ -69,7 +52,7 @@ For each question, create the class(es) in the correct namespace and then copy t
     ```php
     public function languages()
     {
-        echo "\n02) Languages\n";
+        echo "\nInheritance 02) Languages\n";
 
         $english = new Languages\English();
         $french = new Languages\French();
@@ -93,7 +76,7 @@ For each question, create the class(es) in the correct namespace and then copy t
     ```php
     public function greet()
     {
-        echo "\n03) Greet\n";
+        echo "\nInheritance 03) Greet\n";
 
         $english = new Languages\English();
         $french = new Languages\French();
@@ -105,92 +88,19 @@ For each question, create the class(es) in the correct namespace and then copy t
     }
     ```
 
-
-1) Create a `ShapeInterface` with an `area()` method in the `App\Shapes` namespace. Then create three further classes which implement the interface: `Square`, `Circle`, and `Rectangle`. `Square` should be given a side length on construction, `Circle` should be given a radius, and `Rectangle` should be give a width and height.
-
-    **Hint**: PHP has a [`pi`](http://php.net/manual/en/function.pi.php) function
-
-
-    ```php
-    public function shapes()
-    {
-        echo "\n04) Shapes\n";
-
-        // create new shapes
-        $square = new Shapes\Square(4);
-        $circle = new Shapes\Circle(4);
-        $rectangle = new Shapes\Rectangle(4, 5);
-
-        // log the areas of each
-        dump(
-            $square->area(), // 16
-            $circle->area(), // 50.265482457437
-            $rectangle->area() // 20
-        );
-    }
-    ```
-
-1) Create an `Extrude` class in the `App\Shapes` namespace. On construction it should take a class that implements `ShapeInterface` as well as a depth. It should have a `volume()` method which returns the volume (area &times; depth) of the given shape. Make sure you use type-hinting to make sure you can't pass non-shapes into `Extrude`.
-
-    ```php
-    public function extrude()
-    {
-        echo "\n05) Extrude\n";
-
-        // create 2D objects
-        $square = new Shapes\Square(4);
-        $circle = new Shapes\Circle(4);
-        $rectangle = new Shapes\Rectangle(4, 5);
-
-        // turn into 3D objects
-        $cube = new Shapes\Extrude($square, 4);
-        $cylinder = new Shapes\Extrude($circle, 4);
-        $cuboid = new Shapes\Extrude($rectangle, 7);
-
-        // log the volumes of each
-        dump(
-            $cube->volume(), // 64
-            $cylinder->volume(), // 201.06192982975
-            $cuboid->volume() // 140
-        );
-    }
-    ```
-
-1) Copy across your `Book`, `Shelf`, and `Library` classes from yesterday. Keep them in the `App\Library` namespace.
-
-    Now create a `Titled` interface with a `public function title()` method.
-
-    Update the `Shelf` class so that it can accept any sort of `Titled` class.
-
-    Now create a `DVD` and `CD` class, that both implement the `Titled` interface.
-
-
-    ```php
-    public function library()
-    {
-        echo "\n06) Library\n";
-
-        $shelf = new Library\Shelf();
-        $shelf->addItem(new Library\Book("Zero: The Biography of a Dangerous Idea", 256));
-        $shelf->addItem(new Library\DVD("Hunt for the Wilderpeople"));
-        $shelf->addItem(new Library\CD("Teal Album"));
-
-        $otherShelf = new Library\Shelf();
-        $otherShelf->addItem(new Library\Book("The Power Broker", 1336));
-        $otherShelf->addItem(new Library\DVD("Black Sheep"));
-
-        $library = new Library\Library();
-        $library->addShelf($shelf);
-        $library->addShelf($otherShelf);
-
-        dump($library->titles()); // array:5 [ 0 => "Zero: The Biography of a Dangerous Idea" 1 => "Hunt for the Wilderpeople" 2 => "Teal Album" 3 => "The Power Broker" 4 => "Black Sheep" ]
-    }
-    ```
-
-
 ## Tricksy
 
 - Create a new class `Challenges` in the `App\Tricksy` namespace. It should have a `start` method.
+
+    ```php
+    public function start()
+    {
+        echo "\nTricksy Challenges\n";
+
+        // call tricksy challenges here...
+    }
+    ```
+
 - Add a `use` statement to your `App\Challenges` class:
 
     ```php
@@ -237,7 +147,7 @@ As before, for each question, create the class(es) in the correct namespace and 
     ```php
     public function vehicles()
     {
-        echo "\n01) Vehicles\n";
+        echo "\nInheritance 01) Vehicles\n";
 
         $car = new Vehicles\Car();
         $plane = new Vehicles\Plane();
@@ -269,51 +179,5 @@ As before, for each question, create the class(es) in the correct namespace and 
         dump(
             $plane->listOccupants(), // array(7) [ 0 => "Bob Dylan", ... ]
         );
-    }
-    ```
-
-1) PHP has various built-in interfaces. One of these is called [`Iterator`](http://php.net/manual/en/class.iterator.php). If a class implements the `Iterator` interface you can use `foreach` with it. You'll need to read the `Iterator` documentation and look at the examples of each method.
-
-    Create a class `Alphabet` in the `App\Tricksy` namespace, that implements the `Iterator` interface and then check that it works using `foreach`.
-
-    **Hint**: PHP has a function [`chr`](http://php.net/manual/en/function.chr.php) that creates a character string from a character code. Remember, `A` is 65.
-
-    ```php
-    public function alphabet()
-    {
-        echo "\n02) Alphabet\n";
-
-        // create new Alphabet object
-        $alphabet = new Alphabet();
-
-        // logs A -> Z on separate lines
-        foreach ($alphabet as $letter) {
-            dump($letter);
-        }
-    }
-    ```
-
-1) Create a class `Range` in the `App\Tricksy` namespace, that implements the `Iterator` interface and then check that it works using `foreach`.
-
-    ```php
-    public function range()
-    {
-        echo "\n03) Range\n";
-
-        // create new Range object
-        $range = new Range(10, 50);
-
-        // logs 10 -> 50 on separate lines
-        foreach ($range as $n) {
-            dump($n);
-        }
-
-        // create new Range object
-        $range = new Range(1, 5);
-
-        // logs 1 -> 5 on separate lines
-        foreach ($range as $n) {
-            dump($n);
-        }
     }
     ```
