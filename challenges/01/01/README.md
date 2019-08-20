@@ -168,7 +168,7 @@ You'll need to look at how the class is being used in the test code to work out 
 
 ## Tricksy Challenges
 
-1) Create a `Person` class which takes a name and age in the constructor. Also create a `House` class which has an `addDweller()` method, which you can pass a person into. The house should keep track of its dwellers. The `House` class should have a static method called `census()` which you pass an array of `House` objects: it should return a flat array of all the `Person` objects those houses.
+1) Create a `Person` class which takes a name and age in the constructor. Also create a `House` class which has an `addDweller()` method, which you can pass a person into. The house should keep track of its dwellers. The `House` class should have a static method called `census()` which you pass an array of `House` objects: it should return a flat array of all the `Person` objects those houses. It should have a static method called `averageAge` which you pass an array of `House` objects: it should return the average age of everyone in all the houses.
 
     **Hint**: PHP has an [`array_merge`](http://php.net/manual/en/function.array-merge.php) function
 
@@ -198,6 +198,10 @@ You'll need to look at how the class is being used in the test code to work out 
     // but check it has the right number of people
     var_dump(House::census([$house1, $house2])); // array(4) [$carlton, $ida, $estelle, $jana]
     var_dump(House::census([$house2])); // array(2) [$estelle, $jana]
+
+    // return the average ages of the houses
+    var_dump(House::averageAge([$house1, $house2])); // float(40.5)
+    var_dump(House::averageAge([$house1])); // float(28.5)
     ```
 
 

@@ -2,6 +2,16 @@
 
 class Person
 {
+    public static function averageAge($people)
+    {
+        // use reduce to add up the ages of all the people
+        $total = array_reduce($people, function ($total, $person) {
+            return $total + $person->age();
+        }, 0);
+
+        return $total / count($people);
+    }
+
     private $name;
     private $age;
 
@@ -9,6 +19,11 @@ class Person
     {
         $this->name = $name;
         $this->age = $age;
+    }
+
+    public function age()
+    {
+        return $this->age;
     }
 }
 
@@ -23,6 +38,15 @@ class House
         }
 
         return $people;
+    }
+
+    public static function averageAge($houses)
+    {
+        $people = static::census($houses);
+
+        // it's better for people specific stuff to be
+        // on the Person object
+        return Person::averageAge($people);
     }
 
     private $people = [];
@@ -54,3 +78,6 @@ $house2->addDweller($estelle)
 
 var_dump(House::census([$house1, $house2])); // [$carlton, $ida, $estelle, $jana]
 var_dump(House::census([$house2])); // array(2) [$estelle, $jana]
+
+var_dump(House::averageAge([$house1, $house2])); // float(40.5)
+var_dump(House::averageAge([$house1])); // float(28.5)
