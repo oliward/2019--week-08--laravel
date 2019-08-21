@@ -152,6 +152,6 @@ To check your answers run `php bootstrap.php`.
         // Add wheels to the bike
         $bike->addWheel($wheel1)->addWheel($wheel2);
 
-        dump($bike->describe()); // "I am a diamond framed bike. I am made of bamboo. I have 2 wheels"
+        dump($bike->describe()); // "I am a diamond framed bike. I am made of steel. I have 2 wheels"
     }
     ```
