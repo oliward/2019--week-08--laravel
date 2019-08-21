@@ -2,10 +2,18 @@
 
 - More detail in HTTP/API chapters
 - API design needn't reflect database structure
+- Guide to writing classes
+    * [ ] Does it accept arguments: __construct
+    * [ ] Does it need default values?
+    * [ ] What methods does it need?
 - Type hinting arrays, scalars
-- Better static property example?
+- Better static property example in script
 - Mention use partial namespace with `use` - e.g. `App\Cutlery` so you can then do `new Cutlerty\Spoon()`
 - Talk about `unsigned()` integers in foreign key stuff
+- Split Namespaces and Libraries into two parts
+- Cover "boostrap" file in more detail in Namespaces
+- Rewrite notes on autoloading - which file it goes in, etc.
+- `lastName` method used in static section of notes, but not actually in Person class (p. 15)
 
 ## Doing
 

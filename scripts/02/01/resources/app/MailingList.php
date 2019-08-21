@@ -4,39 +4,17 @@ namespace App;
 
 class MailingList
 {
-    private $emails;
-    private $subject;
+    private $subscribers = [];
 
-    public function __construct()
+    public function __construct($subscribers)
     {
-        $this->emails = collect();
+        $this->subscribers = $subscribers;
     }
 
-    public function subject($subject)
+    public function send(Mail $mail)
     {
-        $this->subject = $subject;
-        return $this;
-    }
-
-    public function message($message)
-    {
-        $this->message = $message;
-        return $this;
-    }
-
-    public function addEmail($email)
-    {
-        $this->emails->push($email);
-        return $this;
-    }
-
-    public function sendWith($mailer)
-    {
-        $mailer->from("training@develop.me");
-        $mailer->subject($this->subject);
-
-        $this->emails->each(function ($email) use($mailer) {
-            $mailer->to($email)->send();
-        });
+        foreach ($this->subscribers as $subscriber) {
+            $mail->to($subscriber)->mail();
+        }
     }
 }
