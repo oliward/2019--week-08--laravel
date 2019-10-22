@@ -96,6 +96,14 @@ By default Homestead is setup to use 2GB of RAM. For our purposes this is overki
     memory: 512
 \end{minted}
 
+You'll also need to edit the \texttt{.env} file to use the default Homestead database setup:
+
+\begin{minted}{ini}
+    DB_DATABASE=homestead
+    DB_USERNAME=root
+    DB_PASSWORD=secret
+\end{minted}
+
 Now you can get Vagrant up and running:
 
 \begin{minted}{bash}
