@@ -13,7 +13,7 @@ First, go back over all of the previous challenges this week and add appropriate
     app/
     vendor/
     composer.json
-    index.php
+    bootstrap.php
     ```
 - Include the Composer auto-loading file at the top of `bootstrap.php`
 - Create a new class `Challenges` in the `App` namespace. It should have a `start` method.
