@@ -11,7 +11,7 @@ public function show(Article $article)
 public function update(Request $request, Article $article)
 {
   // no need to find it anymore
-  $data = $request->only(["title", "article"]);
+  $data = $request->all();
   $article->fill($data)->save();
   return $article;
 }
